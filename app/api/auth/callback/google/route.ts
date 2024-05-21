@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
             formData.append("client_secret", c_secret);
             formData.append("redirect_uri", "http://localhost:3000/api/auth/callback/google"); //-> Do drynamic url if prod : https://propermu.com/api/auth/callback/google
             formData.append("grant_type", "authorization_code");
-            
+
             /**
              * Call api
              */
@@ -33,8 +33,9 @@ export async function GET(req: NextRequest) {
                 console.log("Error#2->google_login")
                 return NextResponse.redirect(new URL("/", req.url));
             } else {
-                const decodeJWT: any = jwt.decode(resp.id_tokens);
+                const decodeJWT: any = jwt.decode(resp.id_token);
                 //-> Success, work next under comment
+                console.log(decodeJWT)
             }
         } catch (err) {
             console.log("Error#1->goole_login");
